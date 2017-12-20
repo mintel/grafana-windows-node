@@ -95,7 +95,8 @@
               "application": {
                 "filter": ""
               },
-              "expr": "sum by (mode) (rate(wmi_cpu_time_total{instance=~\"$server\"}[5m]))",
+              "expr": "sum by (mode) (rate(wmi_cpu_time_total{instance=~\"$server\"}[$interval]))",
+              "format": "time_series",
               "functions": [],
               "group": {
                 "filter": ""
@@ -193,6 +194,7 @@
                 "filter": ""
               },
               "expr": "wmi_os_virtual_memory_bytes{instance=~\"$server\"}",
+              "format": "time_series",
               "functions": [],
               "group": {
                 "filter": ""
@@ -219,6 +221,7 @@
                 "filter": ""
               },
               "expr": "wmi_cs_physical_memory_bytes{instance=~\"$server\"}",
+              "format": "time_series",
               "functions": [],
               "group": {
                 "filter": ""
@@ -245,6 +248,7 @@
                 "filter": ""
               },
               "expr": "wmi_os_physical_memory_free_bytes{instance=~\"$server\"}",
+              "format": "time_series",
               "functions": [],
               "group": {
                 "filter": ""
@@ -439,7 +443,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "rate(wmi_system_exception_dispatches_total{instance=~\"$server\"}[2m])",
+              "expr": "rate(wmi_system_exception_dispatches_total{instance=~\"$server\"}[$interval])",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -509,7 +513,7 @@
     },
     {
       "collapse": false,
-      "height": 257,
+      "height": 265,
       "panels": [
         {
           "aliasColors": {},
@@ -549,7 +553,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "irate(wmi_net_packets_outbound_discarded{instance=~\"$server\", nic!~\"isatap.+\"}[2m]) + irate(wmi_net_packets_outbound_errors{instance=~\"$server\"}[2m])",
+              "expr": "irate(wmi_net_packets_outbound_discarded{instance=~\"$server\", nic!~\"isatap.+\"}[$interval]) + irate(wmi_net_packets_outbound_errors{instance=~\"$server\"}[$interval])",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -576,7 +580,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "irate(wmi_net_packets_received_discarded{instance=~\"$server\", nic!~\"isatap.+\"}[2m]) + irate(wmi_net_packets_received_errors{instance=~\"$server\"}[2m])",
+              "expr": "irate(wmi_net_packets_received_discarded{instance=~\"$server\", nic!~\"isatap.+\"}[$interval]) + irate(wmi_net_packets_received_errors{instance=~\"$server\"}[$interval])",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -666,7 +670,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 5,
+          "span": 7,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -674,7 +678,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "rate(wmi_net_packets_sent_total{instance=~\"$server\"}[2m]) >0",
+              "expr": "rate(wmi_net_packets_sent_total{instance=~\"$server\"}[$interval]) >0",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -701,7 +705,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "- rate(wmi_net_packets_received_total{instance=~\"$server\"}[2m]) <0",
+              "expr": "- rate(wmi_net_packets_received_total{instance=~\"$server\"}[$interval]) <0",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -728,7 +732,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Network",
+          "title": "Network (Packets)",
           "tooltip": {
             "shared": false,
             "sort": 2,
@@ -811,7 +815,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "irate(wmi_logical_disk_write_bytes_total{instance=~\"$server\", volume !~\"HarddiskVolume.+\"}[2m])",
+              "expr": "irate(wmi_logical_disk_write_bytes_total{instance=~\"$server\", volume !~\"HarddiskVolume.+\"}[$interval])",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -838,7 +842,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "- irate(wmi_logical_disk_read_bytes_total{instance=~\"$server\", volume !~\"HarddiskVolume.+\"}[2m])",
+              "expr": "- irate(wmi_logical_disk_read_bytes_total{instance=~\"$server\", volume !~\"HarddiskVolume.+\"}[$interval])",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -936,7 +940,7 @@
               "application": {
                 "filter": ""
               },
-              "expr": "rate(wmi_logical_disk_split_ios_total{instance=~\"$server\", volume !~\"HarddiskVolume.+\"}[2m])",
+              "expr": "rate(wmi_logical_disk_split_ios_total{instance=~\"$server\", volume !~\"HarddiskVolume.+\"}[$interval])",
               "format": "time_series",
               "functions": [],
               "group": {
@@ -1035,6 +1039,7 @@
                 "filter": ""
               },
               "expr": "wmi_logical_disk_free_bytes{instance=~\"$server\", volume !~\"HarddiskVolume.+\"}",
+              "format": "time_series",
               "functions": [],
               "group": {
                 "filter": ""
@@ -1146,6 +1151,7 @@
                 "filter": ""
               },
               "expr": "sum(wmi_service_state{instance=~\"$server\"}) by (state)",
+              "format": "time_series",
               "functions": [],
               "group": {
                 "filter": ""
@@ -1397,5 +1403,5 @@
   },
   "timezone": "browser",
   "title": "Windows Node",
-  "version": 8
+  "version": 13
 }
